@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./common/header";
+import styled from "styled-components";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Home from "./pages/home";
+import AddItemPage from "./pages/add-items";
+const BoxContentBody = styled.div`
+  min-height: 300px;
+`;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+        <BoxContentBody>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/add-item">
+              <AddItemPage />
+            </Route>
+          </Switch>
+        </BoxContentBody>
+      </Router>
     </div>
   );
 }

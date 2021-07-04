@@ -2,13 +2,15 @@ import http from '../../config'
 
 export const addNewItem = (file, onUploadProgress) => {
 	let formData = new FormData();
-	console.log('file-------', file);
-	formData.append("file", file);
-	return http.post("/products", formData, {
+	formData.append("avatar", file);
+	for (const feild in onUploadProgress) {
+		formData.append(`${feild}`, onUploadProgress[feild]);
+	}
+	console.log('onUploadProgress', formData.getAll);
+	return http.post("/products/add-product", formData, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
-		onUploadProgress,
 	}).then((res) => {
 		console.log('respon of api addNewItem', res);
 	}).catch(e => {

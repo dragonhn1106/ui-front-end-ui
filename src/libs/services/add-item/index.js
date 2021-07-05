@@ -6,8 +6,7 @@ export const addNewItem = (file, onUploadProgress) => {
 	for (const feild in onUploadProgress) {
 		formData.append(`${feild}`, onUploadProgress[feild]);
 	}
-	console.log('onUploadProgress', formData.getAll);
-	return http.post("/products/add-product", formData, {
+	return http.post("api/add-product", formData, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},

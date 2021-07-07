@@ -13,7 +13,20 @@ const validateSchema = yup.object().shape({
   noiSanXuat: yup.string().required('ten san pham la truong bat buoc'),
   giaBan: yup.string().required('Gia ban la truong bat buoc'),
   giaVon: yup.string().required('Gia von la truong bat buoc'),
-  // avatar: yup.mixed().required('anh dai dien ten san pham la truong bat buoc')
+  // avatar: yup.mixed().required('anh dai dien la truong bat buoc')
+  avatar: yup
+  .mixed()
+  .required("A file is required")
+  .test(
+    "fileSize",
+    "File too large",
+    value => value && value.size <= FILE_SIZE
+  )
+  .test(
+    "fileFormat",
+    "Unsupported Format",
+    value => value && SUPPORTED_FORMATS.includes(value.type)
+  )
 });
 
 function AddItemPage(props) {
@@ -71,7 +84,7 @@ function AddItemPage(props) {
             <label>Giá vốn</label>
             <div className="w-100">
               <NumberFormat {...register("giaVon")} thousandSeparator={true} />
-              {errors.giaBan && <p>{errors.giaBan.message}</p>}
+              {errors.giaVon && <p>{errors.giaVon.message}</p>}
             </div>
           </div>
           <div className="box-inp">
@@ -97,7 +110,8 @@ function AddItemPage(props) {
                 type="file"
                 name="avatar"
               />
-              {isValidateImage && <p>anh dai dien ten san pham la truong bat buoc</p>}
+              {/* {isValidateImage && <p>anh dai dien ten san pham la truong bat buoc</p>} */}
+              {errors.avatar && <p>{errors.avatar.message}</p>}
               <img className='w-100' src={urlImage} />
             </div>
           </div>

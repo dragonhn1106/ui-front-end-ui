@@ -1,4 +1,4 @@
-import http from '../../config'
+import {httpFile} from '../../config'
 
 export const addNewItem = (file, onUploadProgress) => {
 	let formData = new FormData();
@@ -6,10 +6,7 @@ export const addNewItem = (file, onUploadProgress) => {
 	for (const feild in onUploadProgress) {
 		formData.append(`${feild}`, onUploadProgress[feild]);
 	}
-	return http.post("api/add-product", formData, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
+	return httpFile.post("api/add-product", formData, {
 	}).then((res) => {
 		console.log('respon of api addNewItem', res);
 	}).catch(e => {
